@@ -13,8 +13,8 @@ pp = pprint.PrettyPrinter(indent=2)
 requestId = 0 # is automatically incremented at each request
 
 URL = 'http://localhost:7545' # url of my geth node
-PATH_GENESIS = '/blockchain/devnet/genesis.json'
-PATH_SC_TRUFFLE = '/blockchain/contracts/AdditionContract/' # smart contract path
+PATH_GENESIS = 'blockchain/devnet/genesis.json'
+PATH_SC_TRUFFLE = 'blockchain/contracts/correoContract/' # smart contract path
 
 # extracting data from the genesis file
 genesisFile = json.load(open(PATH_GENESIS))
@@ -23,13 +23,13 @@ PERIOD  = genesisFile['config']['clique']['period']
 GASLIMIT = int(genesisFile['gasLimit'],0)
 
 # compile your smart contract with truffle first
-truffleFile = json.load(open(PATH_SC_TRUFFLE + '/build/contracts/AdditionContract.json'))
+truffleFile = json.load(open(PATH_SC_TRUFFLE + 'build/contracts/Correo_contract.json'))
 abi = truffleFile['abi']
 bytecode = truffleFile['bytecode']
 
 # Don't share your private key !
-myAddress = '0xF464A67CA59606f0fFE159092FF2F474d69FD675' # address funded in genesis file
-myPrivateKey = '0x94cb9f766ef067eb229da85213439cf4cbbcd0dc97ede9479be5ee4b7a93b96f'
+myAddress = '0x4Ac5F1181612f67854b3B4F272E6D17cF953359B' # address funded in genesis file
+myPrivateKey = '0x6844e0be12252a079f92f30253253cd2f3a9759515a3db21008ffae54c7cc522'
 
 
 ''' =========================== SOME FUNCTIONS ============================ '''
