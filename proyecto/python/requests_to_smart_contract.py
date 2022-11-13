@@ -13,8 +13,8 @@ pp = pprint.PrettyPrinter(indent=2)
 requestId = 0 # is automatically incremented at each request
 
 URL = 'http://localhost:7545' # url of my geth node
-PATH_GENESIS = '/home/salanfe/privateNetworks/geth_PoA/genesis.json'
-PATH_SC_TRUFFLE = '/home/salanfe/Projects/AdditionContract/' # smart contract path
+PATH_GENESIS = '/blockchain/devnet/genesis.json'
+PATH_SC_TRUFFLE = '/blockchain/contracts/AdditionContract/' # smart contract path
 
 # extracting data from the genesis file
 genesisFile = json.load(open(PATH_GENESIS))
