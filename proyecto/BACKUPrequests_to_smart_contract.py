@@ -28,8 +28,8 @@ abi = truffleFile['abi']
 bytecode = truffleFile['bytecode']
 
 # Don't share your private key !
-myAddress = '0x8A0Ec733fEAaf0Ff41f81207E20cf2836f0Ea555' # address funded in genesis file
-myPrivateKey = '6e3fd078c009a1c4433b7926a0e8b54e9116737a08cec75918d4f7462581e88e'
+myAddress = '0x4Ac5F1181612f67854b3B4F272E6D17cF953359B' # address funded in genesis file
+myPrivateKey = '0x6844e0be12252a079f92f30253253cd2f3a9759515a3db21008ffae54c7cc522'
 
 
 ''' =========================== SOME FUNCTIONS ============================ '''
@@ -92,31 +92,7 @@ while(True):
     time.sleep(PERIOD/10)
 
 
-''' ============= READ YOUR SMART CONTRACT STATE GET FUNCTIONS  =============='''
-# we don't need a nonce since this does not create a transaction but only ask
-# our node to read it's local database
-
-### prepare the data field of the transaction
-# function selector and argument encoding
-# https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector-and-argument-encoding
-# state is declared as public in the smart contract. This creates a getter function
-methodId = w3.sha3(text='leerCorreo()')[0:4].hex()
-data = '0x' + methodId
-transaction_dict = {'from':myAddress,
-                    'to':contractAddress,
-                    'chainId':CHAINID,
-                    'data':data}
-
-params = [transaction_dict, 'latest']
-requestObject, requestId = createJSONRPCRequestObject('eth_call', params, requestId)
-responseObject = postJSONRPCRequestObject(URL, requestObject)
-pprint.pprint(responseObject)
-'''state = w3.toInt(hexstr=responseObject['result'])
-print('using getState() function: result is {}'.format(state))'''
-
-
-
-''' ================= SEND A TRANSACTION TO SMART CONTRACT  ================
+''' ================= SEND A TRANSACTION TO SMART CONTRACT  ================'''
 ### get your nonce
 requestObject, requestId = createJSONRPCRequestObject('eth_getTransactionCount', [myAddress, 'latest'], requestId)
 responseObject = postJSONRPCRequestObject(URL, requestObject)
@@ -126,15 +102,12 @@ print('nonce of address {} is {}'.format(myAddress, myNonce))
 ### prepare the data field of the transaction
 # function selector and argument encoding
 # https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector-and-argument-encoding
-asunto = 'mensaje'
-body = 'Hola amigos'
-destinatario = '0x5Ee63d7369e03E38d8b6783B8127Fd38F1C6b3A3'
-function = 'enviarCorreo(string memory, string memory, address)' # from smart contract
+value1, value2 = 10, 32 # random numbers here
+function = 'add(uint256,uint256)' # from smart contract
 methodId = w3.sha3(text=function)[0:4].hex()
-param1 = w3.toHex(str.encode((asunto)))
-param2 = w3.toHex(str.encode((body)))
-param3 = w3.toHex(str.encode((destinatario)))
-data = '0x' + methodId + param1 + param2 + param3
+param1 = (value1).to_bytes(32, byteorder='big').hex()
+param2 = (value2).to_bytes(32, byteorder='big').hex()
+data = '0x' + methodId + param1 + param2
 
 transaction_dict = {'from':myAddress,
                     'to':contractAddress,
@@ -149,7 +122,7 @@ signed_transaction_dict = w3.eth.account.signTransaction(transaction_dict, myPri
 params = [signed_transaction_dict.rawTransaction.hex()]
 
 ### send the transacton to your node
-print('executing {} with value {},{},{}'.format(function, asunto, body, destinatario))
+print('executing {} with value {},{}'.format(function, value1, value2))
 requestObject, requestId = createJSONRPCRequestObject('eth_sendRawTransaction', params, requestId)
 responseObject = postJSONRPCRequestObject(URL, requestObject)
 transactionHash = responseObject['result']
@@ -168,4 +141,62 @@ while(True):
             raise ValueError('transacation status is "0x0", failed to deploy contract. Check gas, gasPrice first')
         break
     time.sleep(PERIOD/10)
+
+
+
+''' ============= READ YOUR SMART CONTRACT STATE USING GETTER  =============='''
+# we don't need a nonce since this does not create a transaction but only ask
+# our node to read it's local database
+
+### prepare the data field of the transaction
+# function selector and argument encoding
+# https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector-and-argument-encoding
+# state is declared as public in the smart contract. This creates a getter function
+methodId = w3.sha3(text='state()')[0:4].hex()
+data = '0x' + methodId
+transaction_dict = {'from':myAddress,
+                    'to':contractAddress,
+                    'chainId':CHAINID,
+                    'data':data}
+
+params = [transaction_dict, 'latest']
+requestObject, requestId = createJSONRPCRequestObject('eth_call', params, requestId)
+responseObject = postJSONRPCRequestObject(URL, requestObject)
+state = w3.toInt(hexstr=responseObject['result'])
+print('using getter for public variables: result is {}'.format(state))
+
+
+
+''' ============= READ YOUR SMART CONTRACT STATE GET FUNCTIONS  =============='''
+# we don't need a nonce since this does not create a transaction but only ask
+# our node to read it's local database
+
+### prepare the data field of the transaction
+# function selector and argument encoding
+# https://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector-and-argument-encoding
+# state is declared as public in the smart contract. This creates a getter function
+methodId = w3.sha3(text='getState()')[0:4].hex()
+data = '0x' + methodId
+transaction_dict = {'from':myAddress,
+                    'to':contractAddress,
+                    'chainId':CHAINID,
+                    'data':data}
+
+params = [transaction_dict, 'latest']
+requestObject, requestId = createJSONRPCRequestObject('eth_call', params, requestId)
+responseObject = postJSONRPCRequestObject(URL, requestObject)
+state = w3.toInt(hexstr=responseObject['result'])
+print('using getState() function: result is {}'.format(state))
+
+
+''' prints
+nonce of address 0xF464A67CA59606f0fFE159092FF2F474d69FD675 is 4
+contract submission hash 0x64fc8ce5cbb5cf822674b88b52563e89f9e98132691a4d838ebe091604215b25
+newly deployed contract at address 0x7e99eaa36bedba49a7f0ea4096ab2717b40d3787
+nonce of address 0xF464A67CA59606f0fFE159092FF2F474d69FD675 is 5
+executing add(uint256,uint256) with value 10,32
+transaction hash 0xcbe3883db957cf3b643567c078081343c0cbd1fdd669320d9de9d05125168926
+transaction successfully mined
+using getter for public variables: result is 42
+using getState() function: result is 42
 '''
