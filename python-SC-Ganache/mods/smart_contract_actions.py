@@ -72,7 +72,7 @@ def deploy(address, private_key):
 def interact(contact_list, address, private_key):
     nonce = w3.eth.getTransactionCount(address)
     store_contact = contact_list.functions.enviarCorreo(
-        "xdxdxd", "esto se envia al correo 1", "0xE922C4bbD20a24EDfD34B83F4175619DA0B1B94d"
+        "xdxdxd", "esto se envia al correo 1", "0x155cFEa0a30f620928F51027f2087D97119F3940"
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
     
 
@@ -100,9 +100,9 @@ def menu(dep = False):
     op = int(input('op: '))
     if op < 3 and dep == False:
         global contact_list
-        contact_list = deploy('0xE922C4bbD20a24EDfD34B83F4175619DA0B1B94d', 'ba850f0b002d14fb731fceedb9a5d4d36cca674daec5b14daf27666199e1a30f')
+        contact_list = deploy('0xC565dF4E28Cf9D4a0C937111160e475cA304F2e2', 'abb6917cc57e7347532cac643bd8f2d86a64c49ee78703b560598d0145bdb1c2')
     if op == 1:
-        interact(contact_list, '0xE922C4bbD20a24EDfD34B83F4175619DA0B1B94d', 'ba850f0b002d14fb731fceedb9a5d4d36cca674daec5b14daf27666199e1a30f')
+        interact(contact_list, '0xC565dF4E28Cf9D4a0C937111160e475cA304F2e2', 'abb6917cc57e7347532cac643bd8f2d86a64c49ee78703b560598d0145bdb1c2')
     elif op == 2:
         call(contact_list)
     elif op == 3:
