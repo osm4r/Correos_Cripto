@@ -29,13 +29,21 @@ def decrypt(data: bytes, password: bytes):
 
 
 def write(data: bytes, path: str):
-    with open(f"usuarios/{path}", "wb") as file:
-        file.write(data)
+    try:
+        with open(f"usuarios/{path}", "wb") as file:
+            file.write(data)
+        print(f"Archivo {path} creado correctamente")
+    except:
+        print(f"Error al crear el archivo {path}")
 
 
 def read(path: bytes):
-    with open(f"usuarios/{path}", "rb") as file:
-        return file.read()
+    if os.path.isfile(f"usuarios/{path}"):
+        with open(f"usuarios/{path}", "rb") as file:
+            return file.read()
+    else:
+        print(f"Error: El archivo {path} no existe")
+        quit()
 
 
 def genKeyPair():
@@ -60,25 +68,24 @@ def sign(msg: str, seed: bytes):
 def register(username: str, password: str):
     seed: bytes = genKeyPair()
     signed: dict = sign(username, seed)
-    try:
+    if not os.path.isdir("usuarios"):
         os.mkdir("usuarios")
-    except Exception as e:
-        print(e)
-    try:
+    if not os.path.isdir(f"usuarios/{username}"):
         os.mkdir(f"usuarios/{username}")
-    except Exception as e:
-        print(e)
+    else:
+        print("Error: Nombre de usuario inválido")
+        quit()
     write(encrypt(seed, password.encode("utf-8")), f"{username}/{username}.key")
-    print(signed)
+    # print(signed)
     write(signed, f"{username}/{username}.cer")
 
 
 def login(username: str, password: str):
     seed: bytes = decrypt(read(f"{username}/{username}.key"), password.encode("utf-8"))
     signed_raw: bytes = read(f"{username}/{username}.cer")
-    print(signed_raw)
+    # print(signed_raw)
     verify_key = SigningKey(seed).verify_key
-    print(verify_key._key)
+    # print(verify_key._key)
     try:        
         verify_key.verify(signed_raw)
         return True
