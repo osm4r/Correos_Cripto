@@ -20,7 +20,8 @@ def requestToGeth():
 
 def getKeys():
     w3 = web3.Web3()
-    myAccount = w3.eth.account.create('put some extra entropy here')
+    # myAccount = w3.eth.personal.newAccount()
+    myAccount = w3.eth.account.create()
     myAddress = myAccount.address
     myPrivateKey = myAccount.privateKey
     # print('my address is     : {}'.format(myAccount.address))
