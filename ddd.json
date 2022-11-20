@@ -1,93 +1,95 @@
 {
+  "metadata": {
     "compiler": {
-        "version": "0.8.0+commit.c7dfd78e"
+      "version": "0.8.0+commit.c7dfd78e"
     },
     "language": "Solidity",
     "output": {
-        "abi": [
+      "abi": [
+        {
+          "inputs": [
             {
-                "inputs": [
-                    {
-                        "internalType": "string",
-                        "name": "asunto",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "body",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "destinatario",
-                        "type": "address"
-                    }
-                ],
-                "name": "enviarCorreo",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
+              "internalType": "string",
+              "name": "asunto",
+              "type": "string"
             },
             {
-                "inputs": [],
-                "name": "leerCorreo",
-                "outputs": [
-                    {
-                        "components": [
-                            {
-                                "internalType": "string",
-                                "name": "asunto",
-                                "type": "string"
-                            },
-                            {
-                                "internalType": "string",
-                                "name": "body",
-                                "type": "string"
-                            }
-                        ],
-                        "internalType": "struct Correo_contract.Correo_struct[]",
-                        "name": "",
-                        "type": "tuple[]"
-                    }
-                ],
-                "stateMutability": "view",
-                "type": "function"
+              "internalType": "string",
+              "name": "body",
+              "type": "string"
+            },
+            {
+              "internalType": "address",
+              "name": "destinatario",
+              "type": "address"
             }
-        ],
-        "devdoc": {
-            "kind": "dev",
-            "methods": {},
-            "version": 1
+          ],
+          "name": "enviarCorreo",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
         },
-        "userdoc": {
-            "kind": "user",
-            "methods": {},
-            "version": 1
+        {
+          "inputs": [],
+          "name": "leerCorreo",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "asunto",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "body",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct Correo_contract.Correo_struct[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
         }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
     },
     "settings": {
-        "compilationTarget": {
-            "contracts/CorreoContract/CorreoContract.sol": "Correo_contract"
-        },
-        "evmVersion": "istanbul",
-        "libraries": {},
-        "metadata": {
-            "bytecodeHash": "ipfs"
-        },
-        "optimizer": {
-            "enabled": false,
-            "runs": 200
-        },
-        "remappings": []
+      "compilationTarget": {
+        "contracts/CorreoContract/CorreoContract.sol": "Correo_contract"
+      },
+      "evmVersion": "istanbul",
+      "libraries": {},
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "optimizer": {
+        "enabled": false,
+        "runs": 200
+      },
+      "remappings": []
     },
     "sources": {
-        "contracts/CorreoContract/CorreoContract.sol": {
-            "keccak256": "0x21bae21d1158cf156215d2ca162dcf03069bab6e657efd76d38144347b5ea5a0",
-            "urls": [
-                "bzz-raw://2c785ebd5f4c834e2bdbb61a037a6ba4edc7b78b60ee072fc80c076bccf5be6f",
-                "dweb:/ipfs/QmdeQHksQr3H5HNdQgVMcoo2nrHxFs3tZanYdLqh6m1xNp"
-            ]
-        }
+      "contracts/CorreoContract/CorreoContract.sol": {
+        "keccak256": "0x21bae21d1158cf156215d2ca162dcf03069bab6e657efd76d38144347b5ea5a0",
+        "urls": [
+          "bzz-raw://2c785ebd5f4c834e2bdbb61a037a6ba4edc7b78b60ee072fc80c076bccf5be6f",
+          "dweb:/ipfs/QmdeQHksQr3H5HNdQgVMcoo2nrHxFs3tZanYdLqh6m1xNp"
+        ]
+      }
     },
     "version": 1
+  }
 }

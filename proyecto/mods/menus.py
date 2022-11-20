@@ -13,7 +13,7 @@ def contract_menu():
             print(f'{x + 1}. {options[x]}')
         op = int(input('op: '))
         if op == 1:
-            deploy('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
+            deploy('0xb01b81D69e18106d7Bbe5d16770d91fEf8b8a1e6', '0x919a44b8ab58295d2437da75f83437ee11710274d8937024cea4b406e2c38f92')
         if op == 2:
             interact('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
         elif op == 3:
@@ -33,6 +33,9 @@ def main_menu():
         result = login(user, privKey)
         print(result)
         if result:
+            print('Sesión iniciada correctamente')
+            time.sleep(3)
+            os.system('cls')
             contract_menu()
         else:
             print('Usuario y/o contraseña incorrecto(s)')
@@ -44,7 +47,8 @@ def main_menu():
         address, privKey = create_account()
         register(user, address, privKey)
         print(f'Usuario {user} registrado correctamente')
-        time.sleep(3)
+        print('Guarda tu private key porque se borrará la pantalla en 15 segundos')
+        time.sleep(15)
         os.system('cls')
         main_menu()
     else:
