@@ -11,7 +11,7 @@ def main_menu():
     if op == 1:
         user = str(input("Usuario: "))
         privKey = str(getpass("Private Key: "))
-        result = login(user, address, privKey)
+        result = login(user, privKey)
         print(result)
     elif op == 2:
         user = str(input("Usuario: "))
