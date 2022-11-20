@@ -15,6 +15,12 @@ def get_abi():
     return abi
 
 
+def get_contract_address():
+    with open('contracts/CorreoContract/address.txt', 'r') as file:
+        address = file.read().strip()
+    return address
+
+
 def deploy(address, private_key):
     with open("contracts/CorreoContract/CorreoContract.sol", "r") as file:
         contact_list_file = file.read()
@@ -71,14 +77,17 @@ def deploy(address, private_key):
     print("Waiting for transaction to finish...")
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
+    with open('contracts/CorreoContract/address.txt', 'w') as file:
+        file.write(tx_receipt.contractAddress)
 
     
 def interact(address, private_key):
     abi = get_abi()
-    CorreoContract = w3.eth.contract('0xb46d64dA44674Feb8c522b557967362570745a10', abi=abi) # address=tx_receipt.contractAddress, 
+    contract_address = get_contract_address()
+    CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     enviarCorreo = CorreoContract.functions.enviarCorreo(
-        "Asunto", "Body del correo xd", "0x37BdcD6908178ad42c281f20c9d458eAd567f112"
+        "Asunto", "Body del correo xd", "0xb01b81D69e18106d7Bbe5d16770d91fEf8b8a1e6"
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
     
 
@@ -94,7 +103,8 @@ def interact(address, private_key):
 
 def call(address, private_key):
     abi = get_abi()
-    CorreoContract = w3.eth.contract('0xb46d64dA44674Feb8c522b557967362570745a10', abi=abi)
+    contract_address = get_contract_address()
+    CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerCorreo = CorreoContract.functions.leerCorreo().call()
     print(leerCorreo)
     # menu(True)

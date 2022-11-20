@@ -1,7 +1,26 @@
 from .gen_cerkey import *
 from .create_address import *
 from .smart_contract_actions import *
-from getpass import getpass
+import time
+
+
+def contract_menu():
+    options = ['Deploy Contract', 'Interact Functions', 'Call Functions', 'Exit']
+    op = 0
+    while op != 4:
+        print('\n\n---Que desea hacer?---')
+        for x in range(len(options)):
+            print(f'{x + 1}. {options[x]}')
+        op = int(input('op: '))
+        if op == 1:
+            deploy('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
+        if op == 2:
+            interact('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
+        elif op == 3:
+            call('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
+        elif op == 4:
+            op = 4
+
 
 def main_menu():
     print("---Elige una opción---")
@@ -13,10 +32,20 @@ def main_menu():
         privKey = str(getpass("Private Key: "))
         result = login(user, privKey)
         print(result)
+        if result:
+            contract_menu()
+        else:
+            print('Usuario y/o contraseña incorrecto(s)')
+            time.sleep(3)
+            os.system('cls')
+            main_menu()
     elif op == 2:
         user = str(input("Usuario: "))
-        print(f'Usuario: {user}')
         address, privKey = create_account()
         register(user, address, privKey)
+        print(f'Usuario {user} registrado correctamente')
+        time.sleep(3)
+        os.system('cls')
+        main_menu()
     else:
         print("opción inválida")

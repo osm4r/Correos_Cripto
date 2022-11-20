@@ -81,7 +81,11 @@ def register(username: str, address: str, password: str):
 
 
 def login(username: str, password: str):
-    address = s
+    try:
+        files = os.listdir(f'usuarios/{username}')
+        address = files[0][:-4]
+    except:
+        print('Certificado no encontrado')
     seed: bytes = decrypt(read(f"{username}/{address}.key"), password.encode("utf-8"))
     signed_raw: bytes = read(f"{username}/{address}.cer")
     # print(signed_raw)
