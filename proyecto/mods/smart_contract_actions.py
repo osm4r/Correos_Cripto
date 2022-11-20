@@ -87,7 +87,7 @@ def interact(address, private_key):
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     enviarCorreo = CorreoContract.functions.enviarCorreo(
-        "Asunto", "Body del correo xd", "0xb01b81D69e18106d7Bbe5d16770d91fEf8b8a1e6"
+        "Asunto", "Body del correo xd", "0x4b244010137df1415842855b94943498F66D29E3"
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
     
 
@@ -105,6 +105,7 @@ def call(address, private_key):
     abi = get_abi()
     contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
+    # nonce = w3.eth.getTransactionCount(address)
     leerCorreo = CorreoContract.functions.leerCorreo().call()
     print(leerCorreo)
     # menu(True)

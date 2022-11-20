@@ -13,11 +13,11 @@ def contract_menu():
             print(f'{x + 1}. {options[x]}')
         op = int(input('op: '))
         if op == 1:
-            deploy('0xb01b81D69e18106d7Bbe5d16770d91fEf8b8a1e6', '0x919a44b8ab58295d2437da75f83437ee11710274d8937024cea4b406e2c38f92')
+            deploy('0x4b244010137df1415842855b94943498F66D29E3', '0x4b244010137df1415842855b94943498F66D29E3')
         if op == 2:
             interact('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
         elif op == 3:
-            call('0xe185bAF6Ef527c8998dba2338BD8a5648b24Afb1', '5fb08e5ec41b8051325b78f2d8a24b4a48968556b36250e2df759e6a197a4c18')
+            call('0x4b244010137df1415842855b94943498F66D29E3', '0xaae11823d2c13b641c91bfd6badbd8e19b96e296281d5a6c3a33c97431bff9b5')
         elif op == 4:
             op = 4
 
