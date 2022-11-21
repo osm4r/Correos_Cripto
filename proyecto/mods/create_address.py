@@ -20,8 +20,10 @@ def requestToGeth():
 def create_account():
     # w3 = web3.Web3()
     w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
-    # myAccount = w3.eth.personal.newAccount()  
-    myAccount = w3.eth.account.create()
+    # myAccount = w3.eth.account.create()
+    w3.eth.account.enable_unaudited_hdwallet_features()
+    myAccount = w3.eth.account.from_mnemonic("spy emotion during shock evoke cluster nature dawn capable faculty trial long") #AQUI ME QUEDE MODIFICAR ESO DE CREAR CUENTA
+    print(myAccount)
     myAddress = myAccount.address
     myPrivateKey = myAccount.privateKey
     print('Address: {}'.format(myAccount.address))
