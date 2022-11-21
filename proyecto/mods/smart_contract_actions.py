@@ -115,4 +115,8 @@ def initialtransaction(address, private_key):
     print(w3.eth.get_balance(address))
     print('Coinbase: ', w3.eth.coinbase)
     print(w3.eth.get_balance(w3.eth.coinbase))
-    print(w3.eth.accounts)
+
+    cuentas = w3.eth.accounts
+    print('\n\nCuentas')
+    for x in range(len(cuentas)):
+        print(f'{x}: {cuentas[x]}   {w3.eth.get_balance(cuentas[x])}')
