@@ -15,10 +15,10 @@ def get_abi():
     return abi
 
 
-def get_contract_address():
+'''def get_contract_address():
     with open('contracts/CorreoContract/address.txt', 'r') as file:
         address = file.read().strip()
-    return address
+    return address'''
 
 
 def deploy(address, private_key):
@@ -77,13 +77,12 @@ def deploy(address, private_key):
     print("Waiting for transaction to finish...")
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
-    with open('contracts/CorreoContract/address.txt', 'w') as file:
-        file.write(tx_receipt.contractAddress)
+    return tx_receipt.contractAddress
 
     
-def interact(address, private_key):
+def interact(address, private_key, contract_address):
     abi = get_abi()
-    contract_address = get_contract_address()
+    # contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     enviarCorreo = CorreoContract.functions.enviarCorreo(
@@ -101,11 +100,19 @@ def interact(address, private_key):
     print(tx_receipt)
 
 
-def call(address, private_key):
+def call(contract_address):
     abi = get_abi()
-    contract_address = get_contract_address()
+    # contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     # nonce = w3.eth.getTransactionCount(address)
     leerCorreo = CorreoContract.functions.leerCorreo().call()
     print(leerCorreo)
     # menu(True)
+
+
+def initialtransaction(address, private_key):
+    print('Address: ', address)
+    print(w3.eth.get_balance(address))
+    print('Coinbase: ', w3.eth.coinbase)
+    print(w3.eth.get_balance(w3.eth.coinbase))
+    print(w3.eth.accounts)

@@ -1,5 +1,5 @@
 import requests
-import web3
+from web3 import Web3
 
 def requestToGeth():
     # create persistent HTTP connection
@@ -18,7 +18,8 @@ def requestToGeth():
 
 
 def create_account():
-    w3 = web3.Web3()
+    # w3 = web3.Web3()
+    w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
     # myAccount = w3.eth.personal.newAccount()  
     myAccount = w3.eth.account.create()
     myAddress = myAccount.address

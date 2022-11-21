@@ -64,6 +64,11 @@ def sign(msg: str, seed: bytes):
     signed_raw = sign_key.sign(msg.encode("utf-8"))
     return signed_raw
 
+def get_user_address(username):
+    files = os.listdir(f'usuarios/{username}')
+    address = files[0][:-4]
+    return address
+
 
 def register(username: str, address: str, password: str):
     seed: bytes = genKeyPair()
