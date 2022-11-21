@@ -2,26 +2,28 @@ import json
 from pprint import pprint
 from solcx import compile_standard, install_solc
 from web3 import Web3
+from .data_fill import *
 
 
 w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
 chain_id = 1337
 
 
-def get_abi():
-    with open("contracts/CorreoContract/CorreoContract.json", "r") as file:
+def get_abi(username):
+    with open(f"usuarios/{username}/CorreoContract.json", "r") as file:
         compiled_sol = json.load(file)
     abi = json.loads(compiled_sol["contracts"]["contracts/CorreoContract/CorreoContract.sol"]["Correo_contract"]["metadata"])["output"]["abi"]
     return abi
 
 
-'''def get_contract_address():
-    with open('contracts/CorreoContract/address.txt', 'r') as file:
-        address = file.read().strip()
-    return address'''
+def get_contract_address(username):
+    with open(f"usuarios/{username}/CorreoContract.json", "r") as file:
+        compiled_sol = json.load(file)
+    contract_address = compiled_sol['contractAddress']
+    return contract_address
 
 
-def deploy(address, private_key):
+def deploy(username, address, private_key):
     with open("contracts/CorreoContract/CorreoContract.sol", "r") as file:
         contact_list_file = file.read()
 
@@ -40,19 +42,10 @@ def deploy(address, private_key):
         },
         solc_version="0.8.0",
     )
-    # pprint(compiled_sol)
-    with open("contracts/CorreoContract/CorreoContract.json", "w") as file:
-        # json.dump(compiled_sol, file)
-        file.write(json.dumps(compiled_sol, indent=4))
 
     bytecode = compiled_sol["contracts"]["contracts/CorreoContract/CorreoContract.sol"]["Correo_contract"]["evm"]["bytecode"]["object"]
     abi = json.loads(compiled_sol["contracts"]["contracts/CorreoContract/CorreoContract.sol"]["Correo_contract"]["metadata"])["output"]["abi"]
     
-    # For connecting to ganache
-    # w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
-    # chain_id = 1337
-    # address = "0x10f1AEA2815e23D387E93b5fFe329877224a3905"
-    # private_key = "37b61a20694ab7e489b00fcb516630986bbc92343a28cec72ecc4d61de85d7f6"
     # Create the contract in Python
     CorreoContract = w3.eth.contract(abi=abi, bytecode=bytecode)
     # Get the number of latest transaction
@@ -77,18 +70,23 @@ def deploy(address, private_key):
     print("Waiting for transaction to finish...")
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
-    return tx_receipt.contractAddress
+
+    compiled_sol['contractAddress'] = tx_receipt.contractAddress
+    with open(f"usuarios/{username}/CorreoContract.json", "w") as file:
+        file.write(json.dumps(compiled_sol, indent=4))
 
     
-def interact(address, private_key, contract_address):
-    abi = get_abi()
-    # contract_address = get_contract_address()
+def interact(username, address, private_key):
+    subject, body, receiver = get_enviarCorreo_data(address)
+    abi = get_abi(username)
+    contract_address = get_contract_address(username)
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     enviarCorreo = CorreoContract.functions.enviarCorreo(
-        "Asunto", "Body del correo xd", "0x4b244010137df1415842855b94943498F66D29E3"
+        f"{subject}", f"{body}", f"{receiver}"
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
     
+    print(subject, body, receiver) # PENDIENTE, NO SALEN LOS CORREOSSSSSSSSSSS
 
     # Sign the transaction
     sign_function= w3.eth.account.sign_transaction(
@@ -100,23 +98,10 @@ def interact(address, private_key, contract_address):
     print(tx_receipt)
 
 
-def call(contract_address):
-    abi = get_abi()
-    # contract_address = get_contract_address()
+def call(username):
+    abi = get_abi(username)
+    contract_address = get_contract_address(username)
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
-    # nonce = w3.eth.getTransactionCount(address)
     leerCorreo = CorreoContract.functions.leerCorreo().call()
     print(leerCorreo)
-    # menu(True)
 
-
-def initialtransaction(address, private_key):
-    print('Address: ', address)
-    print(w3.eth.get_balance(address))
-    print('Coinbase: ', w3.eth.coinbase)
-    print(w3.eth.get_balance(w3.eth.coinbase))
-
-    cuentas = w3.eth.accounts
-    print('\n\nCuentas')
-    for x in range(len(cuentas)):
-        print(f'{x}: {cuentas[x]}   {w3.eth.get_balance(cuentas[x])}')

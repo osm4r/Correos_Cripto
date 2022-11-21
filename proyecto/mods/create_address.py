@@ -37,7 +37,7 @@ def create_account():
     myAddress = myAccount.address
     myPrivateKey = myAccount.privateKey
     print('Address: {}'.format(myAccount.address))
-    print('Private key (SAVE BUT NOT SHARE THIS): {}'.format(myAccount.privateKey.hex()))
+    print('Private key (NO COMPARTIR): {}'.format(myAccount.privateKey.hex()))
     print('***En el inicio de sesión se pide Usuario y Private Key***')
     return myAddress, myPrivateKey.hex()
 

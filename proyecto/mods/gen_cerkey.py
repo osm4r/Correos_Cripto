@@ -64,6 +64,7 @@ def sign(msg: str, seed: bytes):
     signed_raw = sign_key.sign(msg.encode("utf-8"))
     return signed_raw
 
+
 def get_user_address(username):
     files = os.listdir(f'usuarios/{username}')
     address = files[0][:-4]
@@ -93,9 +94,7 @@ def login(username: str, password: str):
         print('Certificado no encontrado')
     seed: bytes = decrypt(read(f"{username}/{address}.key"), password.encode("utf-8"))
     signed_raw: bytes = read(f"{username}/{address}.cer")
-    # print(signed_raw)
     verify_key = SigningKey(seed).verify_key
-    # print(verify_key._key)
     try:        
         verify_key.verify(signed_raw)
         return True
