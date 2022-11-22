@@ -13,9 +13,15 @@ def show_users(address):
 
     cant_cuentas = get_account_number()
     cuentas = w3.eth.accounts
+
+    with open('usernames.txt', 'r') as file:
+        file_data = file.read()
+        usernames = file_data.split('\n')
+        usernames.pop()
+
     print('\n\nCuentas')
     for x in range(cant_cuentas):
-        print(f'{x}: {cuentas[x]}   {w3.eth.get_balance(cuentas[x])}')
+        print(f'{x}:\t{usernames[x]}\t{cuentas[x]}\t{w3.eth.get_balance(cuentas[x])}')
 
 
 def get_enviarCorreo_data(address):
