@@ -4,28 +4,28 @@ contract Correo_contract {
 
     struct Correo_struct_Enviados {
         address remitente;
-        address destinatario;
         string asunto;
         string body;
         string fecha;
+        address destinatario;
     }
     struct Correo_struct_Recibidos {
         address remitente;
-        address destinatario;
         string asunto;
         string body;
         string fecha;
+        address destinatario;
     }
 
     mapping(address => Correo_struct_Enviados[]) correose;
     mapping(address => Correo_struct_Recibidos[]) correosr;
 
     
-    function enviarCorreo(address remitente, string memory asunto, string memory body, address destinatario, string memory fecha) public {
+    function enviarCorreo(address remitente, string memory asunto, string memory body, string memory fecha, address destinatario) public {
         Correo_struct_Recibidos[] storage correos_local = correosr[destinatario];
-        correos_local.push(Correo_struct_Recibidos(remitente, destinatario, asunto, body, fecha));
+        correos_local.push(Correo_struct_Recibidos(remitente, asunto, body, fecha, destinatario));
         Correo_struct_Enviados[] storage correos_locall = correose[remitente];
-        correos_locall.push(Correo_struct_Enviados(remitente, destinatario, asunto, body, fecha));
+        correos_locall.push(Correo_struct_Enviados(remitente, asunto, body, fecha, destinatario));
     }
 
     function leerCorreosRecibidos(address micorreo) public view returns (Correo_struct_Recibidos[] memory){

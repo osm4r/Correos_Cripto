@@ -11,7 +11,7 @@ def contract_menu(user, address, privKey):
     while op != 4:
         if os.path.isfile(f"contracts/CorreoContract/CorreoContract.json"):
             #pantalla con contract
-            options = ['Enviar Correo', 'Leer Correo', 'Exit']
+            options = ['Enviar Correo', 'Ver correos recibidos', 'Ver correos enviados' , 'Exit']
         else:
             #pantalla sin contract
             options = ['Deploy Contract', 'Exit']
@@ -21,13 +21,15 @@ def contract_menu(user, address, privKey):
         op = int(input('op: '))
         if op == 1 and len(options) == 2:
             deploy(address, privKey)
-        if op == 1 and len(options) == 3:
-            interact(address, privKey)
+        if op == 1 and len(options) == 4:
+            interact_enviarCorreo(address, privKey)
         elif op == 2 and len(options) == 2:
             op = 4
-        elif op == 2 and len(options) == 3:
-            call(user, address)
-        elif op == 3 and len(options) == 3:
+        elif op == 2 and len(options) == 4:
+            call_leerCorreosRecibidos(user, address)
+        elif op == 3 and len(options) == 4:
+            call_leerCorreosRecibidos(user, address)
+        elif op == 4 and len(options) == 4:
             op = 4
 
 
