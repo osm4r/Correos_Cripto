@@ -31,10 +31,13 @@ def show_selection(opc):
         captura.place (x=40, y=40)
 
         txt4 = ttk.Label(ventana2, text = "cuerpo: ")
-        txt5.place(x=20, y=60)
+        txt4.place(x=20, y=60)
 
         captur2 = ttk.Entry()
         captur2.place (x=40, y=60)
+
+        enviar = ttk.Button(text="Enviar")
+        enviar.place(x= 20, y=15)
 
         ventana2.mainloop()
     elif opc == 2:
