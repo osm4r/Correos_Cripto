@@ -2,6 +2,7 @@ import json
 from pprint import pprint
 from solcx import compile_standard, install_solc
 from web3 import Web3
+from datetime import datetime
 from .data_fill import *
 
 
@@ -76,15 +77,17 @@ def deploy(address, private_key):
         file.write(json.dumps(compiled_sol, indent=4))
 
     
-def interact(address, private_key):
+def interact_enviarCorreo(address, private_key):
     subject, body, receiver = get_enviarCorreo_data(address)
     abi = get_abi()
     contract_address = get_contract_address()
     # print('Contract address: ', contract_address)
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
+    now = datetime.now()
+    date = now.strftime("%d/%m/%Y, %H:%M:%S")
     enviarCorreo = CorreoContract.functions.enviarCorreo(
-        subject, body, receiver
+        address, subject, body, date, receiver
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
 
     # Sign the transaction
@@ -97,10 +100,28 @@ def interact(address, private_key):
     pprint(tx_receipt)
 
 
-def call(username, address):
+def call_leerCorreosRecibidos(username, address):
     abi = get_abi()
     contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
-    leerCorreo = CorreoContract.functions.leerCorreo(address).call()
-    print(leerCorreo)
-    pprint(save_correos(username, leerCorreo))
+    leerCorreosRecibidos = CorreoContract.functions.leerCorreosRecibidos(address).call()
+    print(leerCorreosRecibidos)
+    pprint(save_correos(username, leerCorreosRecibidos, 1))
+
+
+def call_leerBandejaEntrada(username, address):
+    abi = get_abi()
+    contract_address = get_contract_address()
+    CorreoContract = w3.eth.contract(contract_address, abi=abi)
+    leerBandejaEntrada = CorreoContract.functions.leerBandejaEntrada(address).call()
+    print(leerBandejaEntrada)
+    pprint(save_correos(username, leerBandejaEntrada, 2))
+
+
+def call_eliminarBandejaEntrada(username, address):
+    abi = get_abi()
+    contract_address = get_contract_address()
+    CorreoContract = w3.eth.contract(contract_address, abi=abi)
+    eliminarBandejaEntrada = CorreoContract.functions.eliminarBandejaEntrada(address).call()
+    print(eliminarBandejaEntrada)
+    pprint(save_correos(username, eliminarBandejaEntrada, 3))

@@ -34,15 +34,23 @@ def get_enviarCorreo_data(address):
     return subject, body, receiver
 
 
-def save_correos(user, correos):
+def save_correos(user, correos, tipo):
     dict_correos = {}
-    campos = ['Asunto', 'Body']
+    campos = ['Remitente', 'Asunto', 'Body', 'Fecha', 'Destinatario']
     for x in range(len(correos)):
         dict_correos[x] = {}
         for y in range(len(correos[x])):
             dict_correos[x][campos[y]] = correos[x][y]
 
-    with open(f"usuarios/{user}/last_call_correos.json", "w") as file:
-        file.write(json.dumps(dict_correos, indent=4))
+    if tipo == 1:
+        with open(f"usuarios/{user}/correos_recibidos.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))
+    elif tipo == 2:
+        with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))
+    else:
+        dict_correos = {}
+        with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))
 
     return dict_correos
