@@ -13,8 +13,8 @@ contract Correo_contract {
         correos_local.push(Correo_struct(asunto, body));
     }
 
-    function leerCorreo() public view returns (Correo_struct[] memory) {
-        Correo_struct[] memory correos_local = correos[msg.sender];
+    function leerCorreo(address micorreo) public view returns (Correo_struct[] memory) {
+        Correo_struct[] memory correos_local = correos[micorreo];
         return correos_local;
     }
 }
