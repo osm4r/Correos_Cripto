@@ -17,7 +17,7 @@ def create_account():
     # myAccount = w3.eth.account.create()
     w3.eth.account.enable_unaudited_hdwallet_features()
     index = get_account_number()
-    myAccount = w3.eth.account.from_mnemonic("write chicken noise expand album valley picture cover occur quote random step", account_path = f"m/44'/60'/0'/0/{index}")
+    myAccount = w3.eth.account.from_mnemonic("another sense time garment play sunset empty frequent minute flame element squeeze", account_path = f"m/44'/60'/0'/0/{index}")
     myAddress = myAccount.address
     myPrivateKey = myAccount.privateKey
     print('Address: {}'.format(myAccount.address))
