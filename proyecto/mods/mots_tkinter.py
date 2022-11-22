@@ -21,7 +21,8 @@ def ventana_inicio():
     Label(text="").pack()
     ventana_principal.mainloop()
 
-def registro():
+#REGISTRO.
+def registro(user, privKey, entrada_user, entrada_privKey):
     global ventana_registro
     ventana_registro = Toplevel(ventana_principal)
     ventana_registro.title("Registro")
@@ -31,8 +32,8 @@ def registro():
     global privKey
     global entrada_user
     global entrada_privKey
-    user = StringVar() 
-    privKey = StringVar() 
+    user = StringVar() #DECLARAMOS "string" COMO TIPO DE DATO PARA "user"
+    privKey = StringVar() #DECLARAMOS "sytring" COMO TIPO DE DATO PARA "privKey"
  
     Label(ventana_registro, text="Introduzca datos", bg="LightGreen").pack()
     Label(ventana_registro, text="").pack()
@@ -49,7 +50,7 @@ def registro():
 
 #CREAMOS VENTANA PARA LOGIN.
 
-def login():
+def login(verifica_usuario, verifica_privKey, entrada_login_usuario, entrada_login_privKey):
     global ventana_login
     ventana_login = Toplevel(ventana_principal)
     ventana_login.title("Acceso a la cuenta")
@@ -78,7 +79,7 @@ def login():
 
 #VENTANA "VERIFICACION DE LOGIN".
 
-def verifica_login():
+def verifica_login(usuario1, privKey1):
     usuario1 = verifica_usuario.get()
     privKey1 = verifica_privKey.get()
     entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
@@ -143,7 +144,7 @@ def borrar_no_usuario():
 
 #REGISTRO USUARIO
  
-def registro_usuario(): ##AQUI TENGO DUDA CON LO QUE HACE EL REGISTRO, LO MANDO AL DOCUMENTO PERO NO SE 
+def registro_usuario(address, usuario_info, privKey): ##AQUI TENGO DUDA CON LO QUE HACE EL REGISTRO, LO MANDO AL DOCUMENTO PERO NO SE 
 ## SI LE DA LA PRIVKEY AUTOMATICO 
  
     usuario_info = user.get()
@@ -165,7 +166,6 @@ def registro_usuario(): ##AQUI TENGO DUDA CON LO QUE HACE EL REGISTRO, LO MANDO 
  
 ventana_inicio()  
  
-
 
 
 
