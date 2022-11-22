@@ -82,7 +82,6 @@ def register(username: str, address: str, password: str):
         print("Error: Nombre de usuario inválido")
         quit()
     write(encrypt(seed, password.encode("utf-8")), f"{username}/{address}.key")
-    # print(signed)
     write(signed, f"{username}/{address}.cer")
 
 
