@@ -2,6 +2,7 @@ from .gen_cerkey import *
 from .create_address import *
 from .smart_contract_actions import *
 from .data_fill import *
+from .mots_tkinter import *
 import time
 
 
@@ -9,8 +10,10 @@ def contract_menu(user, address, privKey):
     op = 0
     while op != 4:
         if os.path.isfile(f"contracts/CorreoContract/CorreoContract.json"):
+            #pantalla con contract
             options = ['Enviar Correo', 'Leer Correo', 'Exit']
         else:
+            #pantalla sin contract
             options = ['Deploy Contract', 'Exit']
         print('\n\n---ACCIONES DE SMART CONTRACT---')
         for x in range(len(options)):
@@ -29,11 +32,13 @@ def contract_menu(user, address, privKey):
 
 
 def main_menu():
-    print("---LOGIN---")
+    #Pantalla login
+    print("---LOGIN---") 
     print("1. Iniciar sesión")
     print("2. Registrarse")
     op = int(input("op: "))
     if op == 1:
+        #pantalla iniciar sesion
         user = str(input("Usuario: "))
         privKey = str(getpass("Private Key: "))
         result = login(user, privKey)
@@ -50,6 +55,7 @@ def main_menu():
             os.system('cls')
             main_menu()
     elif op == 2:
+        #Pantalla Registrar
         user = str(input("Usuario: "))
         address, privKey = create_account()
         register(user, address, privKey)

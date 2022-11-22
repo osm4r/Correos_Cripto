@@ -26,6 +26,7 @@ def show_users(address):
 
 def get_enviarCorreo_data(address):
     show_users(address)
+    #Pantalla datos del correo
     nreceiver = int(input('¿A qué usuario desea enviarle el correo?: '))
     receiver = w3.eth.accounts[nreceiver]
     subject = str(input('Asunto: '))
