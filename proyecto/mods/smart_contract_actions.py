@@ -2,6 +2,7 @@ import json
 from pprint import pprint
 from solcx import compile_standard, install_solc
 from web3 import Web3
+from datetime import datetime
 from .data_fill import *
 
 
@@ -83,7 +84,8 @@ def interact_enviarCorreo(address, private_key):
     # print('Contract address: ', contract_address)
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
-    date = '10/05/2009'
+    now = datetime.now()
+    date = now.strftime("%d/%m/%Y, %H:%M:%S")
     enviarCorreo = CorreoContract.functions.enviarCorreo(
         address, subject, body, date, receiver
     ).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
@@ -114,3 +116,12 @@ def call_leerBandejaEntrada(username, address):
     leerBandejaEntrada = CorreoContract.functions.leerBandejaEntrada(address).call()
     print(leerBandejaEntrada)
     pprint(save_correos(username, leerBandejaEntrada, 2))
+
+
+def call_eliminarBandejaEntrada(username, address):
+    abi = get_abi()
+    contract_address = get_contract_address()
+    CorreoContract = w3.eth.contract(contract_address, abi=abi)
+    eliminarBandejaEntrada = CorreoContract.functions.eliminarBandejaEntrada(address).call()
+    print(eliminarBandejaEntrada)
+    pprint(save_correos(username, eliminarBandejaEntrada, 3))
