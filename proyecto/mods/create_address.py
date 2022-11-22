@@ -1,5 +1,19 @@
 from web3 import Web3
 import os
+import configparser
+
+
+def get_ganache_config():
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    rpcServer = config['GANACHE']['RPCSERVER']
+    chain_id = int(config['GANACHE']['CHAINID'])
+    mnemonic = config["GANACHE"]['MNEMONIC']
+    return rpcServer, chain_id, mnemonic
+
+
+rpcServer, chain_id, mnemonic = get_ganache_config()
+w3 = Web3(Web3.HTTPProvider(rpcServer))
 
 
 def get_account_number():
@@ -12,12 +26,9 @@ def get_account_number():
 
 
 def create_account():
-    # w3 = web3.Web3()
-    w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
-    # myAccount = w3.eth.account.create()
     w3.eth.account.enable_unaudited_hdwallet_features()
     index = get_account_number()
-    myAccount = w3.eth.account.from_mnemonic("another sense time garment play sunset empty frequent minute flame element squeeze", account_path = f"m/44'/60'/0'/0/{index}")
+    myAccount = w3.eth.account.from_mnemonic(mnemonic, account_path = f"m/44'/60'/0'/0/{index}")
     myAddress = myAccount.address
     myPrivateKey = myAccount.privateKey
     print('Address: {}'.format(myAccount.address))

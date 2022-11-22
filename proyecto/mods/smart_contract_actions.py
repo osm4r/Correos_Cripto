@@ -5,8 +5,8 @@ from web3 import Web3
 from .data_fill import *
 
 
-w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
-chain_id = 1337
+rpcServer, chain_id, mnemonic = get_ganache_config()
+w3 = Web3(Web3.HTTPProvider(rpcServer))
 
 
 def get_abi():
@@ -80,7 +80,7 @@ def interact(address, private_key):
     subject, body, receiver = get_enviarCorreo_data(address)
     abi = get_abi()
     contract_address = get_contract_address()
-    print('Contract address: ', contract_address)
+    # print('Contract address: ', contract_address)
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     enviarCorreo = CorreoContract.functions.enviarCorreo(

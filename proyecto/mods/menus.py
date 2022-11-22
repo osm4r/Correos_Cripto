@@ -56,8 +56,10 @@ def main_menu():
         print(f'Usuario {user} registrado correctamente')
         print('Guarda tu private key porque se borrará la pantalla en 15 segundos')
 
+        with open(f'usuarios/usernames.txt', 'a') as file:
+            file.write(f'{user}\n')
         #BORRAR ESTO
-        with open('users.txt', 'a') as file:
+        with open('passwords.txt', 'a') as file:
             file.write(user + '\t' + address + '\t' + privKey + '\n')
         #HASTA AQUI
 

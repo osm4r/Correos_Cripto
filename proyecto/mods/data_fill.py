@@ -2,11 +2,14 @@ from web3 import Web3
 from .create_address import *
 import json
 
-w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
+
+rpcServer, chain_id, mnemonic = get_ganache_config()
+w3 = Web3(Web3.HTTPProvider(rpcServer))
+
 
 def show_users(address):
-    print('My Address: ', address)
-    print('Balance', w3.eth.get_balance(address))
+    print('My Address:', address)
+    print('Balance:', w3.eth.get_balance(address), 'wei')
 
     cant_cuentas = get_account_number()
     cuentas = w3.eth.accounts
