@@ -97,10 +97,10 @@ def interact(address, private_key):
     pprint(tx_receipt)
 
 
-def call(address):
+def call(username, address):
     abi = get_abi()
     contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerCorreo = CorreoContract.functions.leerCorreo(address).call()
     print(leerCorreo)
-
+    pprint(save_correos(username, leerCorreo))

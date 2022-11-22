@@ -1,6 +1,6 @@
 from web3 import Web3
 from .create_address import *
-
+import json
 
 w3 = Web3(Web3.HTTPProvider("http://localhost:7545"))
 
@@ -22,3 +22,17 @@ def get_enviarCorreo_data(address):
     subject = str(input('Asunto: '))
     body = str(input('Cuerpo del correo: '))
     return subject, body, receiver
+
+
+def save_correos(user, correos):
+    dict_correos = {}
+    campos = ['Asunto', 'Body']
+    for x in range(len(correos)):
+        dict_correos[x] = {}
+        for y in range(len(correos[x])):
+            dict_correos[x][campos[y]] = correos[x][y]
+
+    with open(f"usuarios/{user}/last_call_correos.json", "w") as file:
+        file.write(json.dumps(dict_correos, indent=4))
+
+    return dict_correos

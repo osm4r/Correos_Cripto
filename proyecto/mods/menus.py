@@ -5,7 +5,7 @@ from .data_fill import *
 import time
 
 
-def contract_menu(address, privKey):
+def contract_menu(user, address, privKey):
     op = 0
     while op != 4:
         if os.path.isfile(f"contracts/CorreoContract/CorreoContract.json"):
@@ -23,7 +23,7 @@ def contract_menu(address, privKey):
         elif op == 2 and len(options) == 2:
             op = 4
         elif op == 2 and len(options) == 3:
-            call(address)
+            call(user, address)
         elif op == 3 and len(options) == 3:
             op = 4
 
@@ -43,7 +43,7 @@ def main_menu():
             time.sleep(3)
             os.system('cls')
             address = get_user_address(user)
-            contract_menu(address, privKey)
+            contract_menu(user, address, privKey)
         else:
             print('Usuario y/o contraseña incorrecto(s)')
             time.sleep(3)
@@ -63,6 +63,6 @@ def main_menu():
 
         time.sleep(15)
         os.system('cls')
-        contract_menu(address, privKey)
+        contract_menu(user, address, privKey)
     else:
         print("opción inválida")
