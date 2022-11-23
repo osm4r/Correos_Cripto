@@ -1,20 +1,9 @@
-import re
-import os
-import time
 import tkinter as tk
 from tkinter import *
-from idlelib.tooltip import Hovertip
+from tkinter import ttk
 from functools import partial
 from gen_cerkey import *
-
-
-#VENTANA "VERIFICACION DE LOGIN".
-def verifica_login(txtUser, txtPass):
-    user = txtUser.get()
-    password = txtPass.get()
-    Label(login_window, text=user).pack()
-    Label(login_window, text=password).pack()
-
+import time
 
 
 #CREAMOS VENTANA PARA LOGIN.
@@ -27,21 +16,39 @@ def login_function():
     Label(login_window, text="Introduzca nombre de usuario y contraseña").pack()
     Label(login_window, text="").pack()
  
-    user = str
-    privkey = str
+    '''user = str
+    privkey = str'''
  
     Label(login_window, text="Nombre usuario * ").pack()
-    txtUser = Entry(login_window).pack()
+    txtUser = Entry(login_window)
+    txtUser.pack()
     Label(login_window, text="").pack()
     Label(login_window, text="Contraseña * ").pack()
-    txtPass = Entry(login_window, show= '*').pack()
+    txtPass = Entry(login_window, show= '*')
+    txtPass.pack()
 
 
     # entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
     # entrada_login_privKey.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
 
     Label(login_window, text="").pack()
-    Button(login_window, text="Acceder", width=10, height=1, bg="LightGreen", command = partial(verifica_login, txtUser, txtPass)).pack() # login() de genkey
+
+    #VENTANA "VERIFICACION DE LOGIN".
+    def verifica_login():
+        user = txtUser.get()
+        password = txtPass.get()
+        result = login(user, password)
+        if result:
+            address = get_user_address()
+            Label(login_window, text=f'Bienvenido {user} -- {password} -- {address}').pack()
+            time.sleep(3)
+        else:
+            Label(login_window, text=f'Credenciales del usuario {user} incorrectas').pack()
+            time.sleep(3)
+            quit()
+
+
+    Button(login_window, text="Acceder", width=10, height=1, bg="LightGreen", command = verifica_login).pack() # login() de genkey
 
     login_window.mainloop()
 
@@ -93,6 +100,10 @@ def hide_window(window):
 
 def show_window(window):
     window.deiconify()
+
+def destroy_show(window1, window2):
+    window1.destroy()
+    show_window(window2)
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
