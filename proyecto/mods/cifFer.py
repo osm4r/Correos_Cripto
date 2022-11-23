@@ -43,5 +43,5 @@ def FernetD(user):
 key = FernetK()
 FernetC(diccionario, 'Osmar', key)'''
 
-'''diccionario2 = FernetD('Osmar')
+'''diccionario2 = FernetD('ROmeo')
 print(diccionario2)'''

@@ -3,6 +3,7 @@ from pprint import pprint
 from solcx import compile_standard, install_solc
 from web3 import Web3
 from datetime import datetime
+#from cryptography.fernet import Fernet
 from .data_fill import *
 from .cifB64 import *
 
@@ -139,6 +140,7 @@ def call_eliminarBandejaEntrada(username,private_key, address):
     send_function = w3.eth.send_raw_transaction(sign_function.rawTransaction)
     tx_receipt = w3.eth.wait_for_transaction_receipt(send_function)
     pprint(tx_receipt)
-    
-    with open(f"usuarios/{username}/correos_enviados.json", "w") as file:
-        file.write(json.dumps("", indent=4))
+    dic= {}
+    return save_correos(username, dic, 3)
+    '''with open(f"usuarios/{username}/correos_enviados.json", "w") as file:
+        file.write(json.dumps(, indent=4))'''

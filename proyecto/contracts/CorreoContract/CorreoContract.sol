@@ -40,7 +40,7 @@ contract Correo_contract {
     }
 
     function eliminarBandejaEntrada(address micorreo) public {
-        require (keccak256(abi.encode(correose[micorreo])) != keccak256(abi.encode("")), "Error, this address is not registered yet");
+        //require (keccak256(abi.encode(correose[micorreo])) != keccak256(abi.encode("")), "Error, this address is not registered yet");
         delete correose[micorreo];
     }
 
