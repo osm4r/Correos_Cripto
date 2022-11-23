@@ -84,8 +84,7 @@ def deploy(address, private_key):
     return f"Done! Contract deployed to {tx_receipt.contractAddress}"
 
     
-def interact_enviarCorreo(address, private_key):
-    subject, body, receiver = get_enviarCorreo_data(address)
+def interact_enviarCorreo(address, private_key, subject, body, receiver):
     abi = get_abi()
     contract_address = get_contract_address()
     # print('Contract address: ', contract_address)

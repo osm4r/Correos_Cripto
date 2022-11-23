@@ -6,3 +6,4 @@ from .menus import *
 from .data_fill import *
 from .cifFer import *
 from .cifB64 import *
+from .mots_tkinter import *
