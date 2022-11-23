@@ -3,6 +3,7 @@ from .create_address import *
 from .smart_contract_actions import *
 from .data_fill import *
 import time
+from pprint import pprint
 
 
 def contract_menu(user, address, privKey):
@@ -19,17 +20,21 @@ def contract_menu(user, address, privKey):
             print(f'{x + 1}. {options[x]}')
         op = int(input('op: '))
         if op == 1 and len(options) == 2:
-            deploy(address, privKey)
-        if op == 1 and len(options) == 5:
+            pdeploy = deploy(address, privKey)
+            pprint(pdeploy)
+        elif op == 1 and len(options) == 5:
             interact_enviarCorreo(address, privKey)
         elif op == 2 and len(options) == 2:
             op = 999
         elif op == 2 and len(options) == 5:
-            call_leerCorreosRecibidos(user, address)
+            pleerCorreosRecibidos = call_leerCorreosRecibidos(user, address)
+            pprint(pleerCorreosRecibidos)
         elif op == 3 and len(options) == 5:
-            call_leerBandejaEntrada(user, address)
+            pleerBandejaEntrada = call_leerBandejaEntrada(user, address)
+            pprint(pleerBandejaEntrada)
         elif op == 4 and len(options) == 5:
-            call_eliminarBandejaEntrada(user, address)
+            pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, address)
+            pprint(pcall_eliminarBandejaEntrada)
         elif op == 5 and len(options) == 5:
             op = 999
 

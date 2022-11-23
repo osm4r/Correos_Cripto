@@ -70,11 +70,13 @@ def deploy(address, private_key):
     # Wait for the transaction to be mined, and get the transaction receipt
     print("Waiting for transaction to finish...")
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
+    # print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
 
     compiled_sol['contractAddress'] = tx_receipt.contractAddress
     with open(f"contracts/CorreoContract/CorreoContract.json", "w") as file:
         file.write(json.dumps(compiled_sol, indent=4))
+
+    return f"Done! Contract deployed to {tx_receipt.contractAddress}"
 
     
 def interact_enviarCorreo(address, private_key):
@@ -106,7 +108,8 @@ def call_leerCorreosRecibidos(username, address):
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerCorreosRecibidos = CorreoContract.functions.leerCorreosRecibidos(address).call()
     print(leerCorreosRecibidos)
-    pprint(save_correos(username, leerCorreosRecibidos, 1))
+    # pprint(save_correos(username, leerCorreosRecibidos, 1))
+    return save_correos(username, leerCorreosRecibidos, 1)
 
 
 def call_leerBandejaEntrada(username, address):
@@ -115,7 +118,8 @@ def call_leerBandejaEntrada(username, address):
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerBandejaEntrada = CorreoContract.functions.leerBandejaEntrada(address).call()
     print(leerBandejaEntrada)
-    pprint(save_correos(username, leerBandejaEntrada, 2))
+    # pprint(save_correos(username, leerBandejaEntrada, 2))
+    return save_correos(username, leerBandejaEntrada, 2)
 
 
 def call_eliminarBandejaEntrada(username, address):
@@ -124,4 +128,5 @@ def call_eliminarBandejaEntrada(username, address):
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     eliminarBandejaEntrada = CorreoContract.functions.eliminarBandejaEntrada(address).call()
     print(eliminarBandejaEntrada)
-    pprint(save_correos(username, eliminarBandejaEntrada, 3))
+    # pprint(save_correos(username, eliminarBandejaEntrada, 3))
+    return save_correos(username, eliminarBandejaEntrada, 3)
