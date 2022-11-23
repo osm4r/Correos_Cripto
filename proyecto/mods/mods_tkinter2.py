@@ -4,72 +4,80 @@ import time
 import tkinter as tk
 from tkinter import *
 from idlelib.tooltip import Hovertip
+from functools import partial
 from gen_cerkey import *
 
 
-def clearventana():
-    for widget in ventana_principal.winfo_children():
-        widget.destroy()
+#VENTANA "VERIFICACION DE LOGIN".
+def verifica_login(txtUser, txtPass):
+    user = txtUser.get()
+    password = txtPass.get()
+    Label(login_window, text=user).pack()
+    Label(login_window, text=password).pack()
 
-        
+
+
 #CREAMOS VENTANA PARA LOGIN.
 def login_function():
-    clearventana()
-    ventana_principal.title("Acceso a la cuenta")
-    Label(ventana_principal, text="Introduzca nombre de usuario y contraseña").pack()
-    Label(ventana_principal, text="").pack()
+    global login_window
+    login_window=Toplevel(main_window)
+    hide_window(main_window)
+    login_window.geometry("300x250")#DIMENSIONES DE LA VENTANA
+    login_window.title("Iniciar Sesión")
+    Label(login_window, text="Introduzca nombre de usuario y contraseña").pack()
+    Label(login_window, text="").pack()
  
     user = str
     privkey = str
  
-    Label(ventana_principal, text="Nombre usuario * ").pack()
-    entrada_login_usuario = Entry(ventana_principal, textvariable=user)
-    entrada_login_usuario.pack()
-    Label(ventana_principal, text="").pack()
-    Label(ventana_principal, text="Contraseña * ").pack()
-    entrada_login_privKey = Entry(ventana_principal, textvariable=privkey, show= '*')
-    entrada_login_privKey.pack()
+    Label(login_window, text="Nombre usuario * ").pack()
+    txtUser = Entry(login_window).pack()
+    Label(login_window, text="").pack()
+    Label(login_window, text="Contraseña * ").pack()
+    txtPass = Entry(login_window, show= '*').pack()
 
-    user = entrada_login_usuario.get()
-    privkey = entrada_login_privKey.get()
 
     # entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
     # entrada_login_privKey.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
 
-    Label(ventana_principal, text="").pack()
-    Button(ventana_principal, text="Acceder", width=10, height=1, bg="LightGreen", command = print('login funcional')).pack() # login() de genkey
-    ventana_principal.mainloop()
+    Label(login_window, text="").pack()
+    Button(login_window, text="Acceder", width=10, height=1, bg="LightGreen", command = partial(verifica_login, txtUser, txtPass)).pack() # login() de genkey
+
+    login_window.mainloop()
+
+    
+    
 
     
 #REGISTRO.
 def registro_function():
-    clearventana()
-    ventana_principal.title("Registro")
-    ventana_principal.geometry("300x250")
+    global register_window
+    register_window=Toplevel(login_window)
+    hide_window(login_window)
+    register_window.geometry("300x250")#DIMENSIONES DE LA VENTANA
+    register_window.title("Registro")
+    register_window.geometry("300x250")
 
     user = StringVar() #DECLARAMOS "string" COMO TIPO DE DATO PARA "user"
     privKey = StringVar() #DECLARAMOS "sytring" COMO TIPO DE DATO PARA "privKey"
  
-    Label(ventana_principal, text="Introduzca datos", bg="LightGreen").pack()
-    Label(ventana_principal, text="").pack()
-    etiqueta_user = Label(ventana_principal, text="Nombre de usuario * ")
-    etiqueta_user.pack()
-    entrada_nombre = Entry(ventana_principal, textvariable=user) #ESPACIO PARA INTRODUCIR EL NOMBRE.
-    entrada_nombre.pack()
-    etiqueta_privKey = Label(ventana_principal, text="Contraseña * ")
-    etiqueta_privKey.pack()
-    entrada_privKey = Entry(ventana_principal, textvariable=privKey, show='*') #ESPACIO PARA INTRODUCIR LA PRIVKEY.
-    entrada_privKey.pack()
-    Label(ventana_principal, text="").pack()
-    Button(ventana_principal, text="Registrarse", width=10, height=1, bg="LightGreen", command = print('register funcional')).pack() # register() de genkey
+    Label(register_window, text="Introduzca datos", bg="LightGreen").pack()
+    Label(register_window, text="").pack()
+    Label(register_window, text="Nombre de usuario * ").pack()
+    Entry(register_window, textvariable=user).pack()
+    Label(register_window, text="Contraseña * ").pack()
+    Entry(register_window, textvariable=privKey, show='*').pack()
+    Label(register_window, text="").pack()
+    Button(register_window, text="Registrarse", width=10, height=1, bg="LightGreen", command = quit).pack() # register() de genkey
+    register_window.mainloop()
 
 
 def ventana_inicio():
-    global ventana_principal
+    global main_window
     pestas_color="DarkGrey"
-    ventana_principal=Tk()
-    ventana_principal.geometry("300x250")#DIMENSIONES DE LA VENTANA
-    ventana_principal.title("Login con tkinter")#TITULO DE LA VENTANA
+    main_window=Tk()
+    main_window.geometry("300x250")#DIMENSIONES DE LA VENTANA
+    main_window.title("Login con tkinter")#TITULO DE LA VENTANA
     Label(text="Escoja su opción", bg="LightGreen", width="300", height="2", font=("Calibri", 13)).pack()#ETIQUETA CON TEXTO
     Label(text="").pack()
     Button(text="Iniciar Sesión", height="2", width="30", bg=pestas_color, command=login_function).pack() #BOTÓN "Acceder"
@@ -77,15 +85,20 @@ def ventana_inicio():
     Button(text="Registrarse", height="2", width="30", bg=pestas_color, command=registro_function).pack() #BOTÓN "Registrarse".
     Label(text="").pack()
     
-    ventana_principal.mainloop()
+    main_window.mainloop()
 
+    
+def hide_window(window):
+    window.withdraw()
 
+def show_window(window):
+    window.deiconify()
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     
-
+'''
 
 #VENTANA "VERIFICACION DE LOGIN".
 def verifica_login(usuario1, privKey1):
@@ -170,7 +183,7 @@ def registro_usuario(address, usuario_info, privKey): ##AQUI TENGO DUDA CON LO Q
     entrada_nombre.delete(0, END)
     entrada_privKey.delete(0, END)
  
-    Label(ventana_registro, text="Registro completado con éxito", fg="green", font=("calibri", 11)).pack()
+    Label(ventana_registro, text="Registro completado con éxito", fg="green", font=("calibri", 11)).pack()'''
  
 
 ventana_inicio()
