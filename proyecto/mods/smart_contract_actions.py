@@ -4,6 +4,7 @@ from solcx import compile_standard, install_solc
 from web3 import Web3
 from datetime import datetime
 from .data_fill import *
+from .cifB64 import *
 
 
 rpcServer, chain_id, mnemonic = get_ganache_config()
@@ -11,15 +12,17 @@ w3 = Web3(Web3.HTTPProvider(rpcServer))
 
 
 def get_abi():
-    with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
-        compiled_sol = json.load(file)
+    compiled_sol = DecB('contracts/CorreoContract/CorreoContract.json')
+    '''with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
+        compiled_sol = json.load(file)'''
     abi = json.loads(compiled_sol["contracts"]["contracts/CorreoContract/CorreoContract.sol"]["Correo_contract"]["metadata"])["output"]["abi"]
     return abi
 
 
 def get_contract_address():
-    with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
-        compiled_sol = json.load(file)
+    compiled_sol = DecB('contracts/CorreoContract/CorreoContract.json')
+    '''with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
+        compiled_sol = json.load(file)'''
     contract_address = compiled_sol['contractAddress']
     return contract_address
 
@@ -73,8 +76,10 @@ def deploy(address, private_key):
     # print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
 
     compiled_sol['contractAddress'] = tx_receipt.contractAddress
-    with open(f"contracts/CorreoContract/CorreoContract.json", "w") as file:
-        file.write(json.dumps(compiled_sol, indent=4))
+
+    CifB(compiled_sol, 'contracts/CorreoContract/CorreoContract.json')
+    '''with open(f"contracts/CorreoContract/CorreoContract.json", "w") as file:
+        file.write(json.dumps(compiled_sol, indent=4))'''
 
     return f"Done! Contract deployed to {tx_receipt.contractAddress}"
 
