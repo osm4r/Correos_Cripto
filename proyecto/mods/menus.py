@@ -2,7 +2,6 @@ from .gen_cerkey import *
 from .create_address import *
 from .smart_contract_actions import *
 from .data_fill import *
-from .mots_tkinter import *
 import time
 
 

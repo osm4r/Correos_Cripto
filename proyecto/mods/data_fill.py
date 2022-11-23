@@ -1,6 +1,7 @@
 from web3 import Web3
 from .create_address import *
 import json
+from .cifFer import *
 
 
 rpcServer, chain_id, mnemonic = get_ganache_config()
@@ -43,14 +44,20 @@ def save_correos(user, correos, tipo):
             dict_correos[x][campos[y]] = correos[x][y]
 
     if tipo == 1:
-        with open(f"usuarios/{user}/correos_recibidos.json", "w") as file:
-            file.write(json.dumps(dict_correos, indent=4))
+        subpath = f'{user}/correos_recibidos'
+        '''with open(f"usuarios/{user}/correos_recibidos.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))'''
     elif tipo == 2:
-        with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
-            file.write(json.dumps(dict_correos, indent=4))
+        subpath = f'{user}/correos_enviados'
+        '''with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))'''
     else:
         dict_correos = {}
-        with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
-            file.write(json.dumps(dict_correos, indent=4))
+        subpath = f'{user}/correos_enviados'
+        '''with open(f"usuarios/{user}/correos_enviados.json", "w") as file:
+            file.write(json.dumps(dict_correos, indent=4))'''
+    
+    key = FernetK(subpath)
+    FernetC(dict_correos, subpath, key)
 
     return dict_correos

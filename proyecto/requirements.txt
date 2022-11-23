@@ -1,3 +1,4 @@
+cryptography==38.0.3
 PyNaCl==1.4.0
 py_solc_x==1.1.1
 requests==2.28.1
