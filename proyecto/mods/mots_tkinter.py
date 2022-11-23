@@ -25,7 +25,7 @@ def menu(ruser, raddress, rpassword):
     menu = ttk.Label(ventana1, text = " 1.- Enviar Correo\n 2.- Ver correos recibidos\n 3.- Ver Correos enviados\n 4.- Eliminar bandeja de entrada\n 5.-Exit")
     menu.place(x=20, y=20)
 
-    opc = ttk.Combobox(
+    opc = ttk.Combobox(ventana1,
         state="readonly",
         values=["1", "2", "3", "4", "5"]
     )
@@ -126,21 +126,6 @@ def show_selection(opc):
         ventana3.config(width=700, height=1000)
 
         pleerCorreosRecibidos = call_leerCorreosRecibidos(user, address)
-        '''pleerCorreosRecibidos = {0: {'Asunto': 'asdka',
-                                    'Body': 'laksjd alskjd asdlkj',
-                                    'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-                                    'Fecha': '23/11/2022, 00:24:13',
-                                    'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-    1: {'Asunto': 'osadjk asodj',
-        'Body': 'alksd alksjhd aslkdh',
-        'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-        'Fecha': '23/11/2022, 00:27:38',
-        'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-    2: {'Asunto': 'osmar',
-        'Body': 'jas;dj l;kasjdlkas alskhdasl',
-        'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-        'Fecha': '23/11/2022, 00:27:49',
-        'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'}}'''
         
         n = 20
         for x in pleerCorreosRecibidos:
@@ -161,21 +146,6 @@ def show_selection(opc):
         ventana4.config(width=700, height=1000)
   
         pleerCorreosEnviados = call_leerBandejaEntrada(user, address)
-        '''pleerCorreosEnviados = {0: {'Asunto': 'asdka',
-                                    'Body': 'laksjd alskjd asdlkj',
-                                    'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-                                    'Fecha': '23/11/2022, 00:24:13',
-                                    'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-    1: {'Asunto': 'osadjk asodj',
-        'Body': 'alksd alksjhd aslkdh',
-        'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-        'Fecha': '23/11/2022, 00:27:38',
-        'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-    2: {'Asunto': 'osmar',
-        'Body': 'jas;dj l;kasjdlkas alskhdasl',
-        'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-        'Fecha': '23/11/2022, 00:27:49',
-        'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'}}'''
         
         n = 20
         for x in pleerCorreosEnviados:
@@ -194,32 +164,8 @@ def show_selection(opc):
     elif opc.get() == "4":
         ventana5 = tk.Tk()
         ventana5.config(width=700, height=1000)
-  
-        EliminarBandejaEntrada = {0: {'Asunto': 'asdka',
-                                    'Body': 'laksjd alskjd asdlkj',
-                                    'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-                                    'Fecha': '23/11/2022, 00:24:13',
-                                    'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-        1: {'Asunto': 'osadjk asodj',
-            'Body': 'alksd alksjhd aslkdh',
-            'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-            'Fecha': '23/11/2022, 00:27:38',
-            'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'},
-        2: {'Asunto': 'osmar',
-            'Body': 'jas;dj l;kasjdlkas alskhdasl',
-            'Destinatario': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275',
-            'Fecha': '23/11/2022, 00:27:49',
-            'Remitente': '0x31d163DB5eF525fcDEE93d3CF9133531C353F275'}}
-        n = 20
-
-        for x in EliminarBandejaEntrada:
-            txt1 = ttk.Label(ventana5, text = f'Correo {x}')
-            txt1.place(x=10, y=n)
-            for key, y in EliminarBandejaEntrada[x].items():
-                txt1 = ttk.Label(ventana5, text = f'{key}: {y}')
-                txt1.place(x=74, y=n)
-                n = n+20
-            n += 30
+        pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, password, address)
+        
         view = ttk.Button(ventana5, text = "Regresar", command = partial(mostrar, ventana1, ventana5) )
         view.place(rely=1.0, relx=1.0, x=-15, y=-15, anchor=SE)
 

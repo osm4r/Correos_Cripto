@@ -126,11 +126,19 @@ def call_leerBandejaEntrada(username, address):
     return save_correos(username, leerBandejaEntrada, 2)
 
 
-def call_eliminarBandejaEntrada(username, address):
+def call_eliminarBandejaEntrada(username,private_key, address):
     abi = get_abi()
     contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
-    eliminarBandejaEntrada = CorreoContract.functions.eliminarBandejaEntrada(address).call()
-    print(eliminarBandejaEntrada)
-    # pprint(save_correos(username, eliminarBandejaEntrada, 3))
-    return save_correos(username, eliminarBandejaEntrada, 3)
+    nonce = w3.eth.getTransactionCount(address)
+    eliminarBandejaEntrada = CorreoContract.functions.eliminarBandejaEntrada(address).buildTransaction({"chainId": chain_id, "from": address, "gasPrice": w3.eth.gas_price, "nonce": nonce})
+    sign_function= w3.eth.account.sign_transaction(
+        eliminarBandejaEntrada, private_key=private_key
+    )
+    # Send the transaction
+    send_function = w3.eth.send_raw_transaction(sign_function.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(send_function)
+    pprint(tx_receipt)
+    
+    with open(f"usuarios/{username}/correos_enviados.json", "w") as file:
+        file.write(json.dumps("", indent=4))
