@@ -7,29 +7,6 @@ from idlelib.tooltip import Hovertip
 from gen_cerkey import *
 
 
-#VENTANA "VERIFICACION DE LOGIN".
-def verifica_login(usuario1, privKey1):
-    usuario1 = verifica_usuario.get()
-    privKey1 = verifica_privKey.get()
-    entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
-    entrada_login_privKey.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
- 
-    lista_archivos = os.system('cls') #TAMBIEN TENGO DUDA AQUI CON LA INFO GENERADA SI AQUI ES EL ARCHIVO QUE REVISA
-    if usuario1 in lista_archivos:
-        archivo1 = open(usuario1, "r") #APERTURA DE ARCHIVO EN MODO LECTURA
-        verifica = archivo1.read().splitlines() #LECTURA DEL ARCHIVO QUE CONTIENE EL nombre Y contraseña.
-        #SI LA CONTRASEÑA INTRODUCIDA SE ENCUENTRA EN EL ARCHIVO...
-        if privKey1 in verifica:
-            exito_login() #...EJECUTAR FUNCIÓN "exito_login()"
-        #SI LA CONTRASEÑA NO SE ENCUENTRA EN EL ARCHIVO....
-        else:
-            no_privKey() #...EJECUTAR "no_privKey()"
-    else:
-        no_usuario() #..EJECUTA "no_usuario()".
-
-
-# VENTANA "Login finalizado con exito".
-
 def clearventana():
     for widget in ventana_principal.winfo_children():
         widget.destroy()
@@ -52,20 +29,16 @@ def login_function():
     Label(ventana_principal, text="Contraseña * ").pack()
     entrada_login_privKey = Entry(ventana_principal, textvariable=privkey, show= '*')
     entrada_login_privKey.pack()
-    Label(ventana_principal, text="").pack()
-    Button(ventana_principal, text="Acceder", width=10, height=1, bg="LightGreen", command = print('login funcional')).pack() # login() de genkey
-    
 
-    print(user, privkey)
     user = entrada_login_usuario.get()
     privkey = entrada_login_privKey.get()
-    print(user, privkey)
 
-    ventana_principal.mainloop()
     # entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
     # entrada_login_privKey.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
 
-    
+    Label(ventana_principal, text="").pack()
+    Button(ventana_principal, text="Acceder", width=10, height=1, bg="LightGreen", command = print('login funcional')).pack() # login() de genkey
+    ventana_principal.mainloop()
 
     
 #REGISTRO.
@@ -108,8 +81,34 @@ def ventana_inicio():
 
 
 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+    
+
+
+#VENTANA "VERIFICACION DE LOGIN".
+def verifica_login(usuario1, privKey1):
+    usuario1 = verifica_usuario.get()
+    privKey1 = verifica_privKey.get()
+    entrada_login_usuario.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Nombre usuario *" AL MOSTRAR NUEVA VENTANA.
+    entrada_login_privKey.delete(0, END) #BORRA INFORMACIÓN DEL CAMPO "Contraseña *" AL MOSTRAR NUEVA VENTANA.
+ 
+    lista_archivos = os.system('cls') #TAMBIEN TENGO DUDA AQUI CON LA INFO GENERADA SI AQUI ES EL ARCHIVO QUE REVISA
+    if usuario1 in lista_archivos:
+        archivo1 = open(usuario1, "r") #APERTURA DE ARCHIVO EN MODO LECTURA
+        verifica = archivo1.read().splitlines() #LECTURA DEL ARCHIVO QUE CONTIENE EL nombre Y contraseña.
+        #SI LA CONTRASEÑA INTRODUCIDA SE ENCUENTRA EN EL ARCHIVO...
+        if privKey1 in verifica:
+            exito_login() #...EJECUTAR FUNCIÓN "exito_login()"
+        #SI LA CONTRASEÑA NO SE ENCUENTRA EN EL ARCHIVO....
+        else:
+            no_privKey() #...EJECUTAR "no_privKey()"
+    else:
+        no_usuario() #..EJECUTA "no_usuario()".
+
+
+# VENTANA "Login finalizado con exito".
 
  
 def exito_login():
