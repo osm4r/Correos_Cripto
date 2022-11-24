@@ -53,6 +53,7 @@ MNEMONIC = fault squeeze wink clinic skull manual camp slide perfect hope suspec
 ### About the proyect
 
 Proyecto de envío de correos en blockchain mediante transacciones a través de un smartcontract en solidity elaborado en el lenguaje de programación Python. Pruebas realizadas con el software Ganache.
+Existen 2 versiones, una con un poco de diseño, y otra que se maneja todo desde la línea de comandos. Ambas con python, mismas funciones.
 
 PUNTOS A CUMPLIR DE LA RÚBRICA
 
