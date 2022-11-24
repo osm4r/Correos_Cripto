@@ -10,11 +10,11 @@
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/99228295?v=4" width="125px;" /><br>
-    <a href="https://github.com/PHernandez04">Patricia Rubí Hernández Cepeda</a>
+    <a href="https://github.com/PHernandez04">Patricia Rubí Hernández Cepeda 1853692</a>
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/103228912?v=4" width="125px;" /><br>
-    <a href="https://github.com/JesusMS17">Jesús Alejandro Meza Solís</a>
+    <a href="https://github.com/JesusMS17">Jesús Alejandro Meza Solís 1722653</a>
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/117962406?v=4" width="125px;" /><br>
@@ -22,11 +22,11 @@
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/103225759?v=4" width="125px;" /><br>
-    <a href="https://github.com/JJRivera9">Juan José Rivera Arroyo</a>
+    <a href="https://github.com/JJRivera9">Juan José Rivera Arroyo 1863001</a>
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/103234851?v=4" width="125px;" /><br>
-    <a href="https://github.com/may018">Mayela Judith Briones Nuñez</a>
+    <a href="https://github.com/may018">Mayela Judith Briones Nuñez 1903431</a>
 </div>
 
 ### Installation for windows
@@ -39,7 +39,7 @@ $ python -m pip install -r requeriments.txt
 
 ### Configuración de archivo config.ini
 
-config.ini sirve para especificar el Servidor RPC, el chain ID y la frase nmemoric que se visualiza en ganache (si tiene nuestro workspace no tendrá que  configurar el nmemoric)
+config.ini sirve para especificar el Servidor RPC, el chain ID y la frase MNEMONIC que se visualiza en ganache (si tiene nuestro workspace no tendrá que  configurar el MNEMONIC )
 Ejemplo:
 
 ```sh
