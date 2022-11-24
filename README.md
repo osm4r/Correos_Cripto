@@ -37,6 +37,19 @@ $ .\${envname}\Scripts\activate
 $ python -m pip install -r requeriments.txt
 ```
 
+### Configuración de archivo config.ini
+
+config.ini sirve para especificar el Servidor RPC, el chain ID y la frase nmemoric que se visualiza en ganache (si tiene nuestro workspace no tendrá que  configurar el nmemoric)
+Ejemplo:
+
+```sh
+; config.ini
+[GANACHE]
+RPCSERVER = HTTP://localhost:7545
+CHAINID = 1337
+MNEMONIC = fault squeeze wink clinic skull manual camp slide perfect hope suspect toe
+```
+
 ### About the proyect
 
 Proyecto de envío de correos en blockchain mediante transacciones a través de un smartcontract en solidity elaborado en el lenguaje de programación Python. Pruebas realizadas con el software Ganache.
