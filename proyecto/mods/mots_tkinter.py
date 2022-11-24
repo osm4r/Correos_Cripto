@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from functools import partial
 from .smart_contract_actions import *
 from .create_address import *
@@ -123,6 +124,10 @@ def show_selection(opc):
 
     elif opc.get() == "2":
         ventana3 = tk.Tk()
+        #width = ventana3.winfo_screenmmwidth()
+        #height = ventana3.winfo_screenheight()
+        #ventana3.geometry("%dx%d" % (width, height)) 
+        #ventana3.attributes('-fullscreen', True)
         ventana3.config(width=700, height=1000)
 
         pleerCorreosRecibidos = call_leerCorreosRecibidos(user, address)
@@ -143,6 +148,7 @@ def show_selection(opc):
         ventana3.mainloop()
     elif opc.get() == "3":
         ventana4 = tk.Tk()
+        #ventana4.attributes('-fullscreen', True)
         ventana4.config(width=700, height=1000)
   
         pleerCorreosEnviados = call_leerBandejaEntrada(user, address)
@@ -162,18 +168,20 @@ def show_selection(opc):
 
         ventana4.mainloop()
     elif opc.get() == "4":
-        ventana5 = tk.Tk()
-        ventana5.config(width=700, height=1000)
+        pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, password, address)
+        ventana1.deiconify()
+        mensaje = messagebox.showinfo(message = "Se ha eliminado correctamente la bandeja de entrada", title = "Información")
+        '''ventana5 = tk.Tk()
+        ventana5.config(width=500, height=250)
+        txt1 = ttk.Label(ventana5, text = "Se han eliminado correctamente la bandeja de entrada")
         pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, password, address)
         
         view = ttk.Button(ventana5, text = "Regresar", command = partial(mostrar, ventana1, ventana5) )
         view.place(rely=1.0, relx=1.0, x=-15, y=-15, anchor=SE)
-
-     
-        ventana5.mainloop()
+        ventana5.mainloop()'''
     else:
         quit()  
-    mostrar() 
+    #mostrar() 
 
 def show_selection2(opc1):
     esconder(ventana)
