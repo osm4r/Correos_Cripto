@@ -32,7 +32,7 @@ def contract_menu(user, address, privKey):
             pleerBandejaEntrada = call_leerBandejaEntrada(user, address)
             pprint(pleerBandejaEntrada)
         elif op == 4 and len(options) == 5:
-            pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, address)
+            pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, address, privKey)
             pprint(pcall_eliminarBandejaEntrada)
         elif op == 5 and len(options) == 5:
             op = 999

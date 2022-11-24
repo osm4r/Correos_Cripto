@@ -119,7 +119,7 @@ def call_leerBandejaEntrada(username, address):
     return save_correos(username, leerBandejaEntrada, 2)
 
 
-def call_eliminarBandejaEntrada(username,private_key, address):
+def call_eliminarBandejaEntrada(username, address, private_key):
     abi = get_abi()
     contract_address = get_contract_address()
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
