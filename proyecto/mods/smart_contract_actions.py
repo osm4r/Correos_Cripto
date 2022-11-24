@@ -14,16 +14,12 @@ w3 = Web3(Web3.HTTPProvider(rpcServer))
 
 def get_abi():
     compiled_sol = DecB('contracts/CorreoContract/CorreoContract.json')
-    '''with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
-        compiled_sol = json.load(file)'''
     abi = json.loads(compiled_sol["contracts"]["contracts/CorreoContract/CorreoContract.sol"]["Correo_contract"]["metadata"])["output"]["abi"]
     return abi
 
 
 def get_contract_address():
     compiled_sol = DecB('contracts/CorreoContract/CorreoContract.json')
-    '''with open(f"contracts/CorreoContract/CorreoContract.json", "r") as file:
-        compiled_sol = json.load(file)'''
     contract_address = compiled_sol['contractAddress']
     return contract_address
 
@@ -74,7 +70,6 @@ def deploy(address, private_key):
     # Wait for the transaction to be mined, and get the transaction receipt
     print("Waiting for transaction to finish...")
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    # print(f"Done! Contract deployed to {tx_receipt.contractAddress}")
 
     compiled_sol['contractAddress'] = tx_receipt.contractAddress
 
@@ -88,7 +83,6 @@ def deploy(address, private_key):
 def interact_enviarCorreo(address, private_key, subject, body, receiver):
     abi = get_abi()
     contract_address = get_contract_address()
-    # print('Contract address: ', contract_address)
     CorreoContract = w3.eth.contract(contract_address, abi=abi) # address=tx_receipt.contractAddress, 
     nonce = w3.eth.getTransactionCount(address)
     now = datetime.now()
@@ -113,7 +107,6 @@ def call_leerCorreosRecibidos(username, address):
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerCorreosRecibidos = CorreoContract.functions.leerCorreosRecibidos(address).call()
     print(leerCorreosRecibidos)
-    # pprint(save_correos(username, leerCorreosRecibidos, 1))
     return save_correos(username, leerCorreosRecibidos, 1)
 
 
@@ -123,7 +116,6 @@ def call_leerBandejaEntrada(username, address):
     CorreoContract = w3.eth.contract(contract_address, abi=abi)
     leerBandejaEntrada = CorreoContract.functions.leerBandejaEntrada(address).call()
     print(leerBandejaEntrada)
-    # pprint(save_correos(username, leerBandejaEntrada, 2))
     return save_correos(username, leerBandejaEntrada, 2)
 
 
@@ -142,5 +134,3 @@ def call_eliminarBandejaEntrada(username,private_key, address):
     pprint(tx_receipt)
     dic= {}
     return save_correos(username, dic, 3)
-    '''with open(f"usuarios/{username}/correos_enviados.json", "w") as file:
-        file.write(json.dumps(, indent=4))'''

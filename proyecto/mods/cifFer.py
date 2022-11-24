@@ -32,16 +32,5 @@ def FernetD(user):
   with open(f'usuarios/{user}.json', 'rb') as enc_file: 
     encrypted = enc_file.read()
   decrypted = fernet.decrypt(encrypted)
-  # print(type(decrypted))
-  # print(decrypted)
   dict_dec = literal_eval(decrypted.decode('utf-8'))
-  # print(type(dict_dec))
-  # print(dict_dec)
   return dict_dec
-
-'''diccionario = {1: 'asdasd', 2: 'asdsa'}
-key = FernetK()
-FernetC(diccionario, 'Osmar', key)'''
-
-'''diccionario2 = FernetD('ROmeo')
-print(diccionario2)'''
