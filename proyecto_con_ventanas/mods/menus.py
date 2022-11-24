@@ -5,6 +5,7 @@ from .data_fill import *
 import time
 from pprint import pprint
 from .mots_tkinter import *
+from .mods_tkinter2 import *
 
 
 def contract_menu(user, address, privKey):
@@ -19,7 +20,7 @@ def contract_menu(user, address, privKey):
             menu2(user, address, privKey)
             options = ['Deploy Contract', 'Exit']
             menu(user, address, privKey)
-        print('\n\n---ACCIONES DE SMART CONTRACT---')
+        '''print('\n\n---ACCIONES DE SMART CONTRACT---')
         for x in range(len(options)):
             print(f'{x + 1}. {options[x]}')
         op = int(input('op: '))
@@ -41,12 +42,15 @@ def contract_menu(user, address, privKey):
             pcall_eliminarBandejaEntrada = call_eliminarBandejaEntrada(user, address)
             pprint(pcall_eliminarBandejaEntrada)
         elif op == 5 and len(options) == 5:
-            op = 999
+            op = 999'''
 
 
 def main_menu():
     #Pantalla login
-    print("---LOGIN---") 
+    user, address, privkey = ventana_inicio()
+    print(user, address, privkey)
+    contract_menu(user, address, privkey)
+    '''print("---LOGIN---") 
     print("1. Iniciar sesión")
     print("2. Registrarse")
     op = int(input("op: "))
@@ -86,4 +90,4 @@ def main_menu():
         os.system('cls')
         contract_menu(user, address, privKey)
     else:
-        print("opción inválida")
+        print("opción inválida")'''

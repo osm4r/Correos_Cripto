@@ -18,7 +18,7 @@
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/117962406?v=4" width="125px;" /><br>
-    <a href="https://github.com/EleventhD">Erik Gabriel Zúñiga Hernández</a>
+    <a href="https://github.com/EleventhD">Erik Gabriel Zúñiga Hernández 1910326</a>
 </div>
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/103225759?v=4" width="125px;" /><br>

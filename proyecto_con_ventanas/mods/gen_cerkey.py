@@ -91,6 +91,7 @@ def login(username: str, password: str):
         address = files[0][:-4]
     except:
         print('Certificado no encontrado')
+        return False
     seed: bytes = decrypt(read(f"{username}/{address}.key"), password.encode("utf-8"))
     signed_raw: bytes = read(f"{username}/{address}.cer")
     verify_key = SigningKey(seed).verify_key
